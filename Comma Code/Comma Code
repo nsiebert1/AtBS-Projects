@@ -1,0 +1,24 @@
+import copy
+
+def strList(list): # Function to take list and make a string with "and, 'last item' with all other items separated by ', '
+    strList = '' # Empty string
+    list2 = copy.deepcopy(list) # Retain original list
+    try: # Catch empty list error
+        list2.insert(len(list2)-1, 'and') # Add 'and' before the last item in list
+        for item in range(len(list2)-2): # Add all items except last two to string and separate by ', '
+            strList += str(list2[item]) + ', '
+        strList += str(list2[-2]) + ' ' + str(list2[-1]) # Add 'and', a space, and the last item to the string
+        return strList
+    except IndexError:
+        print('Cannot be an empty list.')
+
+
+spam = ['apples', 'bananas', 'tofu', 'cats']
+test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+test2 = []
+
+a = strList(spam)
+print(a)
+print(strList(spam))
+print(strList(test))
+print(strList(test2))
