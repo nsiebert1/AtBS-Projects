@@ -1,0 +1,54 @@
+import random
+numberOfStreaksavg = 0
+totStreaks = 0
+for experimentNumber in range(10000):
+    # Code that creates a list of 100 'heads' or 'tails' values.
+    flipList = [] # Empty list
+    numberOfFlips = 100
+    for flip in range(numberOfFlips): # 100 flips
+        flip = random.randint(0,1) # 1 in 2 chance
+        if flip == 0:
+            flip = 'tails'
+        else:
+            flip = 'heads'
+        flipList += [flip] # Add flip to list
+
+    # Code that checks if there is a streak of 6 heads or tails in a row.
+    hStreak = 0
+    tStreak = 0
+    hStreaks = 0
+    tStreaks = 0
+    for flip in range(numberOfFlips):
+        # Get neighboring flips
+        # No position right of 10th flip
+        if flip < (numberOfFlips - 1):
+            rightPos = flip + 1
+        
+        # Determine if neighbor is heads or tails
+        if hStreak == 6: # Reset streak
+            hStreaks += 1
+            hStreak = 0
+
+        elif tStreak == 6: # Reset streak
+            tStreaks += 1
+            tStreak = 0
+
+        elif flipList[flip] == 'heads': # Heads streak
+            if hStreak == 0:
+                hStreak += 1
+            if flip < (numberOfFlips - 1) and flipList[rightPos] == 'heads': # No position right of 10th flip
+                hStreak += 1
+            else:
+                hStreak = 0
+        elif flipList[flip] == 'tails': # Tails streak
+            if tStreak == 0:
+                tStreak += 1
+            if flip < (numberOfFlips - 1) and flipList[rightPos] == 'tails': # No position right of 10th flip
+                tStreak +=1
+            else:
+                tStreak = 0
+        numberOfStreaks = hStreaks + tStreaks
+        totStreaks += numberOfStreaks
+numberOfStreaksavg = totStreaks / 10000
+
+print('Chance of streak: %s%%' % (numberOfStreaksavg))
