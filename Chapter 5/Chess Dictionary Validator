@@ -1,0 +1,74 @@
+letters = ['a', 'b','c', 'd', 'e', 'f', 'g', 'h']
+numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+pieces = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+colors = ['b', 'w']
+numEachPiece = {'bpawn': 8, 'wpawn': 8, 'bknight': 2, 'wknight': 2, 'bbishop': 2, 'wbishop': 2, 'brook': 2, 'wrook': 2,
+ 'bqueen': 1, 'wqueen': 1, 'bking': 1, 'wking': 1}
+
+# List of valid chess spaces
+def chessSpaceChecker(numbers, letters):
+    validChessSpaces = []
+    for n in numbers:
+        for l in letters:
+            validChessSpaces += [str(n) + l]
+    return validChessSpaces
+# List of valid chess pieces
+def chessPieceChecker(colors, pieces):
+    validChessPieces = []
+    for c in colors:
+        for p in pieces:
+            validChessPieces += [c + p]
+    return validChessPieces
+# Write a function that takes a dictionary argument and returns True or False depending on if the board is valid (Done)
+# One black king, one white king
+# At most 32 pieces (16 per player (color))
+# At most 16 pawns (8 per player (color))
+# Valid spaces from 1a to 8h (Done)
+# Begin piece name with w or b (Done)
+# Pawn, knight, bishop, rook, queen, or king (Done)
+# Ideas: count over the pieces in the given dictionary
+    # Check for valid spaces (Done)
+    # Check for valid piece names (Done)
+    # Check for valid piece amounts (Done)
+        # Per color should catch total errors as well
+    # 3 for loops, one with setdefault
+        # .keys first to check for valid spaces (Done)
+        # .values second to count pieces
+        # .items seems nice, but not useful here since it returns the key and value as one variable
+
+def isValidChessBoard(board):
+    count = {}
+    condition1 = 1
+    condition2 = 1
+    condition3 = 1
+    for space in board.keys():
+        if space not in validChessSpaces:
+            print("Improper chess spaces.")
+            condition1 = 0
+            break
+    for piece in board.values():
+        if piece not in validChessPieces:
+            print("Improper chess piece names.")
+            condition2 = 0
+            break
+    for piece in board.values():
+        count.setdefault(piece, 0)
+        count[piece] += 1
+        try:
+            if count[piece] > numEachPiece[piece]:
+                print("Improper number of chess pieces.")
+                condition3 = 0
+        except KeyError:
+            condition3 = 0
+            break
+    if condition1 == 0 or condition2 == 0 or condition3 == 0:
+        return False
+    else:
+        return True
+
+    
+validChessSpaces = chessSpaceChecker(numbers, letters)
+validChessPieces = chessPieceChecker(colors, pieces)
+
+board = {'1a' : 'bking', '1b': 'wking'}
+test = isValidChessBoard(board)
