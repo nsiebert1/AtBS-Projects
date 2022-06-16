@@ -1,0 +1,23 @@
+# Takes a list of lists of strings and displays it as a table with columns right-justified.
+
+def printTable(tableData):
+    # Function to convert the list to a table.
+    colWidths = [0] * len(tableData) # Creates a list of column widths.
+    for col in range(len(tableData)): # For loop that returns length of string in each row.
+        for row in range(len(tableData[col])):
+            if len(tableData[col][row]) > colWidths[col]:
+                colWidths[col] = len(tableData[col][row])
+            else:
+                continue
+    print('\n')
+    for row in range(len(tableData[col])): # For loop that right-justifies each column and displays tableData as a table.
+        for col in range(len(tableData)):
+            print(tableData[col][row].rjust(colWidths[col]), end = ' ')
+        print()
+    print('\n')
+
+tableData = [['apples', 'oranges', 'cherries', 'banana'],
+             ['Alice', 'Bob', 'Carol', 'David'],
+             ['dogs', 'cats', 'moose', 'goose']]
+
+printTable(tableData)
